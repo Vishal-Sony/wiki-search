@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
+import Cards from './components/Cards'
+import Logo from './components/Logo'
+import Search from './components/Search'
+import {search} from './server'
+
 
 function App() {
+  const [data,setData]=useState([]);
+  const [query,setQuery]=useState('');
+  
+  var data2=[];
+  
+ const onClickSearch =(e) => {
+   e.preventDefault()
+   search(query).then((res)=>{
+     for (var i in res.data.query.pages) {   
+       data2.push(res.data.query.pages[i])      
+      }
+      setData(data2);
+      console.log(data);
+    setQuery('')
+  })}
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Logo/>
+     <Search query={query} setQuery={setQuery} onClickSearch={onClickSearch}/>
+     <div className="CardList">
+    {data.map(ele=>(<Cards data={ele}/>))}
+    
+    </div>
     </div>
   );
 }
