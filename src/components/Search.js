@@ -12,7 +12,7 @@ function Search({query,setQuery,onClickSearch}) {
     <div class="container">
       <form role="search" method="get" class="search-form form" action="">
         <label>
-            <span class="screen-reader-text">Search for Anything...</span>
+            <span class="screen-reader-text">Search for something...</span>
             <input type="search" class="search-field" placeholder="Type something..." value={query} name="s" title="" onChange={handleChange} />
         </label>
         <input type="submit" class="search-submit button" value="Search" onClick={onClickSearch}/>
